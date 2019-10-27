@@ -1,0 +1,13 @@
+[ 50%] Built target listener
+[100%] Built target talker
+Base path: /home/abhinav/ENPM808X/catkin_ws
+Source space: /home/abhinav/ENPM808X/catkin_ws/src
+Build space: /home/abhinav/ENPM808X/catkin_ws/build
+Devel space: /home/abhinav/ENPM808X/catkin_ws/devel
+Install space: /home/abhinav/ENPM808X/catkin_ws/install
+####
+#### Running command: "make cmake_check_build_system" in "/home/abhinav/ENPM808X/catkin_ws/build"
+####
+####
+#### Running command: "make -j12 -l12" in "/home/abhinav/ENPM808X/catkin_ws/build"
+####
