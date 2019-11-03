@@ -63,7 +63,7 @@ find_package(nodelet REQUIRED)
 #   Service1.srv
 #   Service2.srv
 # )
-add_service_files(FILES change_string.srv)
+add_service_files(FILES modify_string.srv)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
