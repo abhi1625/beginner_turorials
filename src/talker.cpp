@@ -50,6 +50,8 @@ bool modifyString(beginner_tutorials::modify_string::Request &req,
                   beginner_tutorials::modify_string::Response &resp) {
   stringMsg = req.input;
   resp.output = req.input;
+
+  // Display warning when string is updated using the services
   ROS_WARN_STREAM("The base output string has been updated");
   return true;
 }
@@ -70,20 +72,25 @@ int main(int argc, char **argv) {
    */
   ros::init(argc, argv, "talker");
 
+  /**
+   * Default publishing rate
+   */
   int rate = 10;
 
+  /**
+   * Check if rate argument is passsed
+   */
   if (argc == 2) {
-    
     rate = atoi(argv[1]);
     std::cout << "rate " << rate <<"\n";
-    ROS_DEBUG_STREAM("Input rate is: " << rate);
-  
+    ROS_DEBUG_STREAM("Input rate is: " << rate);          // Debug logger level
+
     if (rate < 0) {
       rate = 1;
-      ROS_ERROR_STREAM("Invalid rate value");
+      ROS_ERROR_STREAM("Invalid rate value");             // Error logger level
     }
   } else {
-    ROS_WARN_STREAM("Using default publishing rate");
+    ROS_WARN_STREAM("Using default publishing rate");     // Warning message
   }
 
   /**
@@ -112,6 +119,9 @@ int main(int argc, char **argv) {
    */
   ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
 
+  /**
+   * Advertise modify string service with the corresponding callback
+   */
   auto server = n.advertiseService("modify_string", modifyString);
 
   ros::Rate loop_rate(rate);
@@ -148,6 +158,9 @@ int main(int argc, char **argv) {
     ++count;
   }
 
+  /**
+   * Fatal message if ROS node is not running
+   */
   if (!ros::ok()) {
     ROS_FATAL_STREAM("ROS node is not running");
   }
