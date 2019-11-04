@@ -38,7 +38,7 @@
 /**
  * Initialize default string
  */
-std::string stringMsg = "Base string msg";
+extern std::string stringMsg = "Base string msg";
 
 /**
  * @brief callback funciton for the service to modify string
