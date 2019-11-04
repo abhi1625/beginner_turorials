@@ -38,25 +38,26 @@
 /**
  * Initialize default string
  */
-extern std::string stringMsg = "Base string msg";
+std::string stringMsg = "Base string msg";
 
 /**
- * NodeHandle is the main access point to communications with the ROS system.
- * The first NodeHandle constructed will fully initialize this node, and the last
- * NodeHandle destructed will close down the node.
+ * @brief callback funciton for the service to modify string
+ * @param req - request object for the service
+ * @param resp - response object for the service
+ * @return bool - to indicate success/failure of callback function
  */
 bool modifyString(beginner_tutorials::modify_string::Request &req,
                   beginner_tutorials::modify_string::Response &resp) {
   stringMsg = req.input;
-  resp.output = req.input + ": modified";
-  ROS_INFO_STREAM("The base output string has been updated");
+  resp.output = req.input;
+  ROS_WARN_STREAM("The base output string has been updated");
   return true;
 }
 
 /**
  * This tutorial demonstrates how to send messages across the ROS system.
  */
-int main(int argc, char **argv) {s
+int main(int argc, char **argv) {
   /**
    * The ros::init() function needs to see argc and argv so that it can perform
    * any ROS arguments and name remapping that were provided at the command line.
@@ -68,6 +69,22 @@ int main(int argc, char **argv) {s
    * part of the ROS system.
    */
   ros::init(argc, argv, "talker");
+
+  int rate = 10;
+
+  if (argc == 2) {
+    
+    rate = atoi(argv[1]);
+    std::cout << "rate " << rate <<"\n";
+    ROS_DEBUG_STREAM("Input rate is: " << rate);
+  
+    if (rate < 0) {
+      rate = 1;
+      ROS_ERROR_STREAM("Invalid rate value");
+    }
+  } else {
+    ROS_WARN_STREAM("Using default publishing rate");
+  }
 
   /**
    * NodeHandle is the main access point to communications with the ROS system.
@@ -95,9 +112,10 @@ int main(int argc, char **argv) {s
    */
   ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
 
-  auto server = n.advertiseService("modify string", modifyString);
+  auto server = n.advertiseService("modify_string", modifyString);
 
-  ros::Rate loop_rate(10);
+  ros::Rate loop_rate(rate);
+  ROS_INFO_STREAM("Setting publishing rate");
 
   /**
    * A count of how many messages we have sent. This is used to create
@@ -128,6 +146,10 @@ int main(int argc, char **argv) {s
 
     loop_rate.sleep();
     ++count;
+  }
+
+  if (!ros::ok()) {
+    ROS_FATAL_STREAM("ROS node is not running");
   }
 
   return 0;
