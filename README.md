@@ -31,6 +31,10 @@ git clone --recursive https://github.com/abhi1625/beginner_tutorials.git
 cd ..
 catkin_make
 ```
+**Note:** To checkout the Week10_HW branch use this command once the repo is cloned.
+```
+git checkout Week10_HW
+```
 
 ## Running the package
 Follow the given steps to run the project:
@@ -52,7 +56,28 @@ rosrun beginner_tutorials talker
 ```
 rosrun beginner_tutorials listener
 ```
+**Note:** From each new terminal source devel/setup.bash file of your workspace in order to execute any ros commands linked to the package.
 
+## Run the nodes using launch file
+After building the project you can also use the launch file to run the two nodes. The steps are as follows:
+```
+roslaunch beginner_tutorials beginner_tutorials.launch
+```
+You can also specify publishing rate as an argument(The default rate is set as 10) 
+```
+roslaunch beginner_tutorials beginner_tutorial.launch rate:=5
+```
+## Using the modify string service
+A service to modify string has been added to the project which modifies the base string being published by the talker. Once both the nodes are running, you can use the `rosservice` command to change the string message as follows:
+```
+rosservice call /modify_string "New string"
+``` 
+Now the talker will start publishing "New string"
 
+## Checking the log messages
+The output of the rqt_console with info and warn logger levels is added in the results folder. To check the logs using the GUI use:
+```
+rqt_console
+```
 
 
