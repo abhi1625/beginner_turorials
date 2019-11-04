@@ -143,6 +143,7 @@ int main(int argc, char **argv) {
     msg.data = ss.str();
 
     ROS_INFO("%s", msg.data.c_str());
+    ROS_DEBUG_STREAM("Input rate is: " << rate);
 
     /**
      * The publish() function is how you send messages. The parameter
