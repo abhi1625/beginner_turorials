@@ -46,8 +46,8 @@ extern std::string stringMsg = "Base string msg";
  * @param resp - response object for the service
  * @return bool - to indicate success/failure of callback function
  */
-bool modifyString(beginner_tutorials::modify_string::Request &req,
-                  beginner_tutorials::modify_string::Response &resp) {
+bool modifyString(beginner_tutorials::modify_string::Request &req,  // NOLINT
+                  beginner_tutorials::modify_string::Response &resp) { // NOLINT
   stringMsg = req.input;
   resp.output = req.input;
 
