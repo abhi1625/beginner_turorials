@@ -30,8 +30,8 @@
  * @created on : Oct 27, 2019
  */
 
-#include <sstream>
 #include <tf/transform_broadcaster.h>
+#include <sstream>
 #include "ros/ros.h"
 #include "std_msgs/String.h"
 #include "beginner_tutorials/modify_string.h"
@@ -162,11 +162,11 @@ int main(int argc, char **argv) {
     /**
      * set transform
      */
-    transform.setOrigin(tf::Vector3(1.0,2.0,3.0));
+    transform.setOrigin(tf::Vector3(1.0, 2.0, 3.0));
     tf::Quaternion q;
     q.setRPY(PI, PI/2, 2);
     transform.setRotation(q);
-    br.sendTransform(tf::StampedTransform(transform, 
+    br.sendTransform(tf::StampedTransform(transform,
                                           ros::Time::now(), "world", "talk"));
 
     ros::spinOnce();
