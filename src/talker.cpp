@@ -31,9 +31,12 @@
  */
 
 #include <sstream>
+#include <tf/transform_broadcaster.h>
 #include "ros/ros.h"
 #include "std_msgs/String.h"
 #include "beginner_tutorials/modify_string.h"
+
+#define PI 3.14
 
 /**
  * Initialize default string
@@ -71,6 +74,9 @@ int main(int argc, char **argv) {
    * part of the ROS system.
    */
   ros::init(argc, argv, "talker");
+
+  static tf::transformBroadcaster br;
+  tf::Transform transform;
 
   /**
    * Default publishing rate
@@ -152,6 +158,16 @@ int main(int argc, char **argv) {
      * in the constructor above.
      */
     chatter_pub.publish(msg);
+
+    /**
+     * set transform
+     */
+    transform.setOrigin(tf::Vector3(1.0,2.0,3.0));
+    tf::Quaternion q;
+    q.setRPY(PI, PI/2, 2);
+    transform.setRotation(q);
+    br.sendTransform(tf::StampedTransform(transform, 
+                                          ros::Time::now(), "world", "talk"));
 
     ros::spinOnce();
 
