@@ -148,7 +148,7 @@ int main(int argc, char **argv) {
     ss << stringMsg << count;
     msg.data = ss.str();
 
-    ROS_INFO("%s", msg.data.c_str());
+    ROS_INFO_STREAM(msg.data.c_str());
     ROS_DEBUG_STREAM("Input rate is: " << rate);
 
     /**
