@@ -75,7 +75,7 @@ int main(int argc, char **argv) {
    */
   ros::init(argc, argv, "talker");
 
-  static tf::transformBroadcaster br;
+  static tf::TransformBroadcaster br;
   tf::Transform transform;
 
   /**
