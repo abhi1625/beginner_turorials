@@ -208,5 +208,24 @@ target_link_libraries(listener ${catkin_LIBRARIES})
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
 
+if(CATKIN_ENABLE_TESTING)
+  add_rostest_gtest(
+    talkerTest
+    test/talkerTest.launch
+    test/main.cpp
+    test/talkerTest.cpp
+  )
+  target_link_libraries(
+    talkerTest
+    ${catkin_LIBRARIES}
+  )
+
+  add_dependencies(
+    talker
+    talkerTest
+    ${catkin_EXPORTED_TARGETS}
+  )
+endif()
+
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
